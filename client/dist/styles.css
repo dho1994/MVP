@@ -1,5 +1,8 @@
 * {
   box-sizing: border-box;
+  font-family: 'Helvetica Neue';
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, Roboto,
+    Ubuntu, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
 }
 
 html,
@@ -28,6 +31,19 @@ main {
 
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+}
+
+#testText {
+  z-index: 99;
+  position: absolute;
+  color: white;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 30%;
 }
 
 header {

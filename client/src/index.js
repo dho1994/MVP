@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
 import Star from './components/Star.jsx';
+import StarLink from './components/StarLink.jsx';
 
 import * as THREE from 'three';
 
@@ -96,7 +97,11 @@ function App() {
           fade // Faded dots (default=false)
         />
         {/* <Reposition /> */}
+        {Array(2000).fill().map((element, index) => <StarLink key={index} />)}
+        <gridHelper args={[10, 10, `white`, `gray`]} />
       </Canvas>
+      <div id='testText'>WHY DOESN'T THIS SHOW UP</div>
+
       <main>
 
         <header>
