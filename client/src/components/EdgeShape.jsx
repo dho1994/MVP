@@ -13,6 +13,9 @@ function EdgeShape(props) {
   const color = new THREE.Color()
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
+    // ref.current.rotation.x += 0.01;
+    // ref.current.rotation.y += 0.01;
+    // ref.current.rotation.z += 0.01;
     ref.current.rotation.x += active ? -0.01 : 0.01;
     ref.current.rotation.y += active ? -0.01 : 0.01;
     ref.current.rotation.z += active ? -0.01 : 0.01;
@@ -38,8 +41,8 @@ function EdgeShape(props) {
       ref={ref}
       scale={1}
       onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
+      onPointerOver={(event) => {setHover(true);}}
+      onPointerOut={(event) => {setHover(false);}}
     >
       <sphereGeometry args={[1, 6, 3]} />
       <meshStandardMaterial wireframe={true} />
