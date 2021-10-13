@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
+import Star from './components/Stars.jsx';
 
 import * as THREE from 'three';
 
@@ -48,7 +49,7 @@ const CameraControls = () => {
     <orbitControls
       ref={controls}
       args={[camera, domElement]}
-      autoRotate={true}
+      // autoRotate={true}
       // enablePan={true}
       enableRotate={true}
       enableZoom={false}
@@ -87,12 +88,12 @@ document.body.onscroll = () => { console.log('scrolled') }
 const Reposition = () => {
   const { camera } = useThree();
 
-  useFrame(() => {
-    const t = document.body.getBoundingClientRect().top;
-    camera.position.z = t * -0.01;
-    camera.position.x = t * -0.0002;
-    camera.position.y = t * -0.0002;
-  });
+  // useFrame(() => {
+  //   const t = document.body.getBoundingClientRect().top;
+  //   camera.position.z = t * 0.01;
+  //   camera.position.x = t * 0.0002;
+  //   camera.position.y = t * 0.0002;
+  // });
 
   // useThree(({ camera }) => {
   //   const t = document.body.getBoundingClientRect().top;
@@ -118,14 +119,15 @@ function App() {
         <EdgeShape />
         <Background />
         <CameraControls />
-        <Stars
+        {Array(2000).fill().map((element, index) => <Star key={index}/>)}
+        {/* <Stars
           radius={100} // Radius of the inner sphere (default=100)
           depth={50} // Depth of area where stars should fit (default=50)
           count={5000} // Amount of stars (default=5000)
           factor={4} // Size factor (default=4)
           saturation={0} // Saturation 0-1 (default=0)
           fade // Faded dots (default=false)
-        />
+        /> */}
         <Reposition />
       </Canvas>
       <main>
