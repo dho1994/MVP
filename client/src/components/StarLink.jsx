@@ -51,7 +51,7 @@ function StarLink(props) {
 
   var coordinates = [longitude, latitude];
   var vectorCoordinates = vertex(coordinates, 50);
-  console.log(vectorCoordinates);
+  // console.log(vectorCoordinates);
 
   useFrame((state, delta) => {
     // ref.current.position.x += 0.01;

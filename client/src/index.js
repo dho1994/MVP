@@ -23,8 +23,27 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 // // "Boba Tea" (https://skfb.ly/6UpwE) by Felix Yadomi is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 // function Asset({ url }) {
 //   const gltf = useLoader(GLTFLoader, url)
-//   return <primitive object={gltf.scene} scale={0.025} position={[2, -2, 0]} />
+//   const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
+//   return (<primitive object={gltf.scene} scale={0.025} position={[x, y, z]} />)
 // };
+function InstancedAsset({ url }) {
+  const gltf = useLoader(GLTFLoader, url)
+  // console.log(gltf)
+  // [geometry, setGeometry] = useState(undefined);
+  // console.log(geometry);
+  // if (!geometry) {
+  //   console.log(geometry);
+
+  //   // Scene settings
+  //   const scene = gltf.scene.clone(true); // so we can instantiate multiple copies of this geometry
+  //   // setCastShadow(scene.children, true);
+  //   // setReceiveShadow(scene.children, true);
+  //   setGeometry(scene);
+  // }
+  const scene = gltf.scene.clone(true);
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
+  return (<primitive object={scene} scale={0.025} position={[x, y, z]} />)
+};
 
 function Background() {
   const { scene } = useThree();
@@ -77,8 +96,15 @@ function App() {
   return (
     <div id="main-canvas" onClick={() => { console.log('clicked') }}>
       <Canvas>
+        <Suspense fallback={null}>
+        <InstancedAsset url="/assets/satellite 2/scene.gltf" />
+        <InstancedAsset url="/assets/satellite 2/scene.gltf" />
+        </Suspense>
         {/* <Suspense fallback={null}>
-          <Asset url="/assets/link_-_breath_of_the_wild/scene.gltf" />
+          <Asset url="/assets/satellite 2/scene.gltf" />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Asset url="/assets/satellite 2/scene.gltf" />
         </Suspense> */}
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
@@ -97,7 +123,7 @@ function App() {
           fade // Faded dots (default=false)
         />
         {/* <Reposition /> */}
-        {Array(2000).fill().map((element, index) => <StarLink key={index} />)}
+        {Array(50).fill().map((element, index) => <StarLink key={index} />)}
         <gridHelper args={[10, 10, `white`, `gray`]} />
       </Canvas>
       <div id='testText'>WHY DOESN'T THIS SHOW UP</div>
