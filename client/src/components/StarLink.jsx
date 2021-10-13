@@ -17,9 +17,9 @@ function vertex(point, radius) {
   return new THREE.Vector3(x, y, z);
 }
 
+// Helper function for generating a random number with fixed significant digits
 function getRandomInRange(from, to, fixed) {
   return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-  // .toFixed() returns string, so ' * 1' is a trick to convert to number
 }
 
 function StarLink(props) {
@@ -45,10 +45,11 @@ function StarLink(props) {
   // const y = Math.random() > 0.5 ? 10 : -10;
   // const z = Math.random() > 0.5 ? 10 : -10;
 
-  var longitude = getRandomInRange(-180, 180, 3);
-  var latitude = getRandomInRange(-90, 90, 3);
-  var coordinates = [longitude, latitude];
+  // Returns a random number between -n/2 and +n/2
+  var longitude = THREE.MathUtils.randFloatSpread(360);
+  var latitude = THREE.MathUtils.randFloatSpread(180);
 
+  var coordinates = [longitude, latitude];
   var vectorCoordinates = vertex(coordinates, 50);
   console.log(vectorCoordinates);
 
