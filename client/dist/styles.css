@@ -65,3 +65,9 @@ blockquote p {
 .left {
   grid-column: 6 / 12;
 }
+
+button {
+  color: rgb(175, 240, 234);
+  z-index: 100;
+  position: absolute;
+}

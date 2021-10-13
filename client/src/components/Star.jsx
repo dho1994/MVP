@@ -20,7 +20,7 @@ function Star(props) {
       ref={ref}
       position={[x, y, z]}
     >
-      <sphereGeometry args={[0.1, 24, 24]} />
+      <sphereGeometry args={[0.05, 24, 24]} />
       <meshStandardMaterial color="white" />
     </mesh>
   )
