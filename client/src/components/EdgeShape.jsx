@@ -34,9 +34,9 @@ function EdgeShape(props) {
     ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "white").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })
 
-  // useEffect(() => {
-  //   document.body.style.cursor = hovered ? 'pointer' : 'auto'
-  // }, [hovered])
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto'
+  }, [hovered])
 
   return (
     <mesh
@@ -44,8 +44,8 @@ function EdgeShape(props) {
       ref={ref}
       scale={1}
       onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => { setHover(true); }}
-      onPointerOut={(event) => { setHover(false); }}
+      onPointerOver={(event) => { setHover(true); props.setEnabled(true); }}
+      onPointerOut={(event) => { setHover(false); props.setEnabled(false); }}
     >
       <sphereGeometry args={[1, 6, 3]} />
       <meshStandardMaterial wireframe={true} />

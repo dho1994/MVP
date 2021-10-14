@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
+import CameraControls from './components/CameraControls.jsx';
 import Star from './components/Star.jsx';
 // import Starlink from './components/Starlink.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
@@ -12,10 +13,6 @@ import * as THREE from 'three';
 
 import { useRef, useState, useEffect } from 'react'
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
-
-// Extend will make OrbitControls available as a JSX element called orbitControls for us to use.
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-extend({ OrbitControls });
 
 import { Stars } from '@react-three/drei';
 
@@ -67,28 +64,7 @@ function Background() {
   return null;
 }
 
-const CameraControls = () => {
-  const {
-    camera,
-    gl: { domElement },
-  } = useThree();
 
-  // Ref to the controls, so that we can update them on every frame with useFrame
-  const controls = useRef();
-  useFrame(() => controls.current.update());
-  // console.log(controls)
-  return (
-    <orbitControls
-      ref={controls}
-      args={[camera, domElement]}
-      autoRotate={true}
-      autoRotateSpeed={1}
-      // enablePan={true}
-      enableRotate={true}
-      enableZoom={false}
-    />
-  );
-};
 
 // document.body.onscroll = () => { console.log('scrolled') }
 
@@ -124,7 +100,7 @@ function App() {
         <pointLight position={[10, 10, 10]} />
         {/* <Box position={[-1.2, 0, 0]} />
         <Box position={[1.2, 0, 0]} /> */}
-        <EdgeShape />
+        {/* <EdgeShape /> */}
         <Background />
         <CameraControls />
         {/* {Array(2000).fill().map((element, index) => <Star key={index}/>)} */}
