@@ -92,7 +92,6 @@ main {
   width: 10rem;
   z-index: -1;
   animation: fadeIn 1s;
-  position: relative;
 }
 
 @keyframes fadeIn {
@@ -105,7 +104,7 @@ main {
 }
 
 h1 {
-  text-shadow: 2px 2px aqua;
+  text-shadow: 0.15rem 0.15rem aqua;
 }
 
 #header-main {
@@ -123,7 +122,9 @@ h1 {
 #header-sub {
   font-size: 4.5rem;
   text-align: center;
-  margin: 45% 0;
+  /* margin: 45% 0; */
+  margin-top: 45%;
+  /* margin-bottom: 10%; */
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 500;
 }
@@ -132,61 +133,69 @@ h1 {
   text-decoration: none;
 }
 
-
-/* #header-main {
-  grid-column: 4 / span 6;
-  font-size: 4rem;
+#waitlist-form {
+  width: 50rem;
+  font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 1rem;
+  margin-bottom: 13%;
+  /* box-shadow: 0.04rem 0.04rem aqua; */
 }
 
-#header-sub {
-  grid-column: 3 / span 8;
-  font-size: 3rem;
+.waitlist-form-container {
+  opacity: 1;
+  /* padding: 1rem 2rem; */
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 2rem;
+}
+
+.waitlist-form-label {
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 0.04rem 0.04rem aqua;
+}
+
+.waitlist-form-input {
+  color: darkgray;
+  border-radius: 0.6rem;
+  /* background: rgba(0, 0, 0, .05); */
+  background: rgba(255, 255, 255, .05);
+  height: 2rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+#waitlist-form-container-top {
+  margin-top: 1rem;
+}
+
+/* #waitlist-form-container-bottom {
+  margin-bottom: 3rem;
+} */
+
+#waitlist-form-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#waitlist-form-button {
+  /* padding: 1rem 2rem; */
+  /* border-radius: 1rem; */
+  margin: 1rem 2rem;
+  margin-bottom: 1rem;
+  padding: 0 1.2rem;
+  color: white;
   text-align: center;
-} */
-
-
-
-/*
-
-
-
-header {
-  background: var(--dark-bg);
-  grid-column: 2 / span 5;
-  font-size: 2.5rem;
-  padding: 2rem;
-  margin-bottom: var(--spacing);
+  color: white;
+  text-shadow: 0.04rem 0.04rem aqua;
 }
 
-section {
-  grid-column: 2 / 8;
-  padding: 1rem;
-  background: var(--dark-bg);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin-bottom: var(--spacing);
+input[type=email],
+input[type=text]
+{
+  color: white;
+  text-transform:uppercase;
 }
-
-blockquote {
-  margin: 0;
-  padding: 0;
-  grid-column: 2 / span 9;
-  margin-bottom: var(--spacing);
-}
-
-blockquote p {
-  color: black;
-  font-size: 4rem;
-  display: inline;
-  line-height: 1;
-}
-
-.left {
-  grid-column: 6 / 12;
-}
-
-button {
-  color: rgb(175, 240, 234);
-  z-index: 100;
-  position: absolute;
-} */

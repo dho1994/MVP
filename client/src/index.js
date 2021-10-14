@@ -9,6 +9,7 @@ import Star from './components/Star.jsx';
 // import Starlink from './components/Starlink.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
 import SelectedSatelliteInfo from './components/SelectedSatelliteInfo.jsx';
+import WaitlistForm from './components/WaitlistForm.jsx';
 
 import * as THREE from 'three';
 
@@ -50,7 +51,7 @@ function InstancedAsset({ url, orientation }) {
   const longitude = orientation === "left" ? -115 : 115;
   const latitude = orientation === "left" ? 65 : -65;
   var coordinates = [longitude, latitude];
-  console.log(coordinates)
+  // console.log(coordinates)
   var vectorCoordinates = vertex(coordinates, 10);
   return (<primitive object={scene} scale={0.05} position={vectorCoordinates} />)
 };
@@ -99,10 +100,14 @@ function App() {
   const [showStarlinkName, setShowStarlinkName] = useState(true);
   const spaceTexture = useMemo(() => new THREE.TextureLoader().load("/assets/space dark.jpg"), []);
 
+  const handleCanvasClick = () => {
+    // console.log('clicked');
+  };
+
   const getStarlinks = () => {
     axios.get('/starlinks')
       .then((result) => {
-        console.log('result of get starlinks', result);
+        // console.log('result of get starlinks', result);
         setStarlinks(result.data.docs);
         setSelectedStarlink(result.data.docs[0]);
       })
@@ -118,29 +123,29 @@ function App() {
 
   useEffect(() => {
     document.body.onscroll = () => {
-      console.log('scrolled');
+      // console.log('scrolled');
       const t = document.body.getBoundingClientRect().top;
       const h = document.body.getBoundingClientRect().height;
       // console.log(-t / h > 0.1);
       if (t < 0) {
         setShowStarlinkName(false);
-        console.log('set show starlink name to false')
+        // console.log('set show starlink name to false')
       } else {
         setShowStarlinkName(true);
-        console.log('set show starlink name to true')
+        // console.log('set show starlink name to true')
       }
       if (-t / h > 0.1) {
         setShowIndicator(false);
-        console.log('set show indicator to false')
+        // console.log('set show indicator to false')
       } else {
         setShowIndicator(true);
-        console.log('set show indicator to true')
+        // console.log('set show indicator to true')
       }
     }
   }, []);
 
   return (
-    <div id="main-canvas" onClick={() => { console.log('clicked') }} >
+    <div id="main-canvas" onClick={handleCanvasClick} >
       <Canvas>
         <Suspense fallback={null}>
           {/* {Array(3).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)} */}
@@ -198,42 +203,10 @@ function App() {
       <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
         <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
-        {/* <h1 id="header-sub">Join the Waiting List</h1> */}
-        <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1>
-        {/* <header>
-          <h1>Blah</h1>
-          <p>🚀 Blah blah blah!</p>
-        </header>
-
-        <blockquote>
-          <p>Blah blah blah</p>
-        </blockquote>
-
-        <section className="left">
-          <h2>Blah</h2>
-
-          <h3>Blah</h3>
-          <p>
-            Blah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blah
-          </p>
-          <h3>Blah</h3>
-          <p>
-            Blah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blah
-          </p>
-          <h3>Blah</h3>
-          <p>
-            Blah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blahBlah blah blah
-          </p>
-
-        </section>
-
-
-        <blockquote>
-          <p>Thanks for watching!</p>
-        </blockquote> */}
-
+        <h1 id="header-sub">Join the Waiting List</h1>
+        {/* <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1> */}
+        <WaitlistForm />
       </main>
-
     </div>
   )
 }
