@@ -5,7 +5,8 @@ import axios from 'axios';
 import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
 import Star from './components/Star.jsx';
-import Starlink from './components/Starlink.jsx';
+// import Starlink from './components/Starlink.jsx';
+import StarlinkContainer from './components/StarlinkContainer.jsx';
 
 import * as THREE from 'three';
 
@@ -103,34 +104,12 @@ const Reposition = () => {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [starlinks, setStarlinks] = useState([]);
-  const [selectedStarlink, setSelectedStarlink] = useState({});
-
-  const getStarlinks = () => {
-    axios.get('/starlinks')
-      .then((result) => {
-        console.log('result of get starlinks', result);
-        setStarlinks(result.data.docs);
-        setSelectedStarlink(result.data.docs[0]);
-      })
-      .catch((error) => {
-        console.log('error getting starlinks from server!', error);
-      })
-  }
-
-  useEffect(() => {
-    getStarlinks();
-    // setStarlinks("something");
-    setIsLoading(false);
-  }, []);
-
   return (
     <div id="main-canvas" onClick={() => { console.log('clicked') }}>
       <Canvas>
-        {/* <Suspense fallback={null}>
+        <Suspense fallback={null}>
           {Array(1).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)}
-        </Suspense> */}
+        </Suspense>
         {/* <Suspense fallback={null}>
           <Asset url="/assets/satellite 2/scene.gltf" />
         </Suspense>
@@ -155,14 +134,7 @@ function App() {
         />
         {/* <Reposition /> */}
         {/* {Array(50).fill().map((element, index) => <Starlink key={index} />)} */}
-        {starlinks.map((starlink) => (
-          <Starlink
-            key={starlink.id}
-            starlink={starlink}
-            selectedStarlink={selectedStarlink}
-            setSelectedStarlink={setSelectedStarlink}
-          />)
-        )}
+        <StarlinkContainer />
         <gridHelper args={[10, 10, `white`, `gray`]} />
       </Canvas>
       <div id='testText'>WHY DOESN'T THIS SHOW UP. make "reset camera" button. </div>
