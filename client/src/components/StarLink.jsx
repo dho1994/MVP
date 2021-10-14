@@ -2,6 +2,8 @@ import ReactDOM from 'react-dom'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
+import { Html } from '@react-three/drei';
+
 import * as THREE from 'three';
 
 // Helper function for converting coordinates [longitude, latitude] into a THREE.Vector3 in (x, y, z) plane
@@ -50,6 +52,7 @@ function Starlink(props) {
               <sphereGeometry args={[0.5, 6, 6]} />
               {/* <meshStandardMaterial color="salmon" wireframe={true} /> */}
               <meshStandardMaterial color="rgb(223,115,255)" wireframe={true} />
+              <Html position={[0, 0, 0]}><div id="selected-satellite-name-floating">{props.showStarlinkName ? props.selectedStarlink.spaceTrack.OBJECT_NAME : null}</div></Html>
             </>
           )
           : (

@@ -96,6 +96,7 @@ function App() {
   const [starlinks, setStarlinks] = useState([]);
   const [selectedStarlink, setSelectedStarlink] = useState({});
   const [showIndicator, setShowIndicator] = useState(true);
+  const [showStarlinkName, setShowStarlinkName] = useState(true);
   const spaceTexture = useMemo(() => new THREE.TextureLoader().load("/assets/space dark.jpg"), []);
 
   const getStarlinks = () => {
@@ -121,6 +122,13 @@ function App() {
       const t = document.body.getBoundingClientRect().top;
       const h = document.body.getBoundingClientRect().height;
       // console.log(-t / h > 0.1);
+      if (t < 0) {
+        setShowStarlinkName(false);
+        console.log('set show starlink name to false')
+      } else {
+        setShowStarlinkName(true);
+        console.log('set show starlink name to true')
+      }
       if (-t / h > 0.1) {
         setShowIndicator(false);
         console.log('set show indicator to false')
@@ -163,26 +171,35 @@ function App() {
         />
         {/* <Reposition /> */}
         {/* {Array(50).fill().map((element, index) => <Starlink key={index} />)} */}
-        <StarlinkContainer starlinks={starlinks} selectedStarlink={selectedStarlink} setSelectedStarlink={setSelectedStarlink} />
+        <StarlinkContainer
+          starlinks={starlinks}
+          selectedStarlink={selectedStarlink}
+          setSelectedStarlink={setSelectedStarlink}
+          showStarlinkName={showStarlinkName}
+        />
         {/* <gridHelper args={[10, 10, `white`, `gray`]} /> */}
+        {/* <sprite>
+          <sphereGeometry args={[0.5, 6, 6]} />
+          <spriteMaterial color="rgb(223,115,255)" wireframe={true} />
+        </sprite> */}
       </Canvas>
       <>
         {showIndicator
           ? (
-          // <div id='indicator-text'>Scroll for more</div>
-          <img
-          id='indicator-arrow'
-          src="/assets/icons8-chevron-100.png"
-        />
+            // <div id='indicator-text'>Scroll for more</div>
+            <img
+              id='indicator-arrow'
+              src="/assets/icons8-chevron-100.png"
+            />
           )
           : null
         }
       </>
       <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
-          <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
-          {/* <h1 id="header-sub">Join the Waiting List</h1> */}
-          <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1>
+        <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
+        {/* <h1 id="header-sub">Join the Waiting List</h1> */}
+        <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1>
         {/* <header>
           <h1>Blah</h1>
           <p>🚀 Blah blah blah!</p>

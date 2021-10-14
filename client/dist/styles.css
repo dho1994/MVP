@@ -86,6 +86,15 @@ main {
   font-size: 1rem;
 }
 
+#selected-satellite-name-floating {
+  font-size: 0.7rem;
+  padding: 0.5rem;
+  width: 10rem;
+  z-index: -1;
+  animation: fadeIn 1s;
+  position: relative;
+}
+
 @keyframes fadeIn {
   from {
   	opacity: 0;

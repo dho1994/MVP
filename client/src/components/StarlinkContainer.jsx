@@ -10,7 +10,7 @@ import { useRef, useState, useEffect } from 'react'
 
 
 function StarlinkContainer(props) {
-  const { starlinks, selectedStarlink, setSelectedStarlink } = props;
+  const { starlinks, selectedStarlink, setSelectedStarlink, showStarlinkName } = props;
 
   return (
     <>
@@ -20,6 +20,7 @@ function StarlinkContainer(props) {
           starlink={starlink}
           selectedStarlink={selectedStarlink}
           setSelectedStarlink={setSelectedStarlink}
+          showStarlinkName={showStarlinkName}
         />)
       )}
     </>
