@@ -48,13 +48,14 @@ function Starlink(props) {
           ? (
             <>
               <sphereGeometry args={[0.5, 6, 6]} />
-              <meshStandardMaterial color="salmon" wireframe={true} />
+              {/* <meshStandardMaterial color="salmon" wireframe={true} /> */}
+              <meshStandardMaterial color="rgb(223,115,255)" wireframe={true} />
             </>
           )
           : (
             <>
               <octahedronGeometry args={[0.5]} />
-              <meshStandardMaterial color="black" wireframe={true} />
+              <meshStandardMaterial color="rgb(0,255,239)" wireframe={true} />
             </>
           )
       }

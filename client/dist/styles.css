@@ -6,6 +6,10 @@
     Ubuntu, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
 }
 
+html {
+  font-size: clamp(8px, 1vw, 24px);
+}
+
 html,
 body,
 #main-canvas {
@@ -27,20 +31,22 @@ canvas {
 }
 
 main {
-  width: 100vw;
+  /* width: 100vw; */
   z-index: 99;
   position: absolute;
   width: 100%;
   margin: 0px auto;
-  padding: 120px 0px;
+  /* padding: 120px 0px; */
 
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  /* display: grid;
+  grid-template-columns: repeat(12, 1fr); */
+  display: flex;
+  flex-direction: column;
 }
 
-#testText {
+/* #indicator-text {
   z-index: 99;
-  position: absolute;
+  position: fixed;
   bottom: 10%;
   left: 0;
   right: 0;
@@ -48,19 +54,85 @@ main {
   margin-right: auto;
   text-align: center;
   width: 30%;
+} */
+
+#indicator-arrow {
+  z-index: 99;
+  position: fixed;
+  bottom: 4%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 2.5rem;
 }
 
 #selected-satellite-info {
   z-index: 99;
-  position: absolute;
+  position: fixed;
   bottom: 5%;
   right: 5%;
 }
 
+/* #indicator-text, */
+.selected-satellite-details {
+  font-size: 1rem;
+	animation: fadeIn 1s;
+  	opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+  	opacity: 0;
+  }
+  to {
+ 	opacity: 1;
+  }
+}
+
+h1 {
+  text-shadow: 2px 2px aqua;
+}
+
+#header-main {
+  font-family: 'Roboto', sans-serif;
+  width: 50rem;
+  /* font-size: 6rem; */
+  font-size: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.25rem;
+}
+
+#header-sub {
+  font-size: 4.5rem;
+  text-align: center;
+  margin: 45% 0;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+#header-sub a {
+  text-decoration: none;
+}
+
+
+/* #header-main {
+  grid-column: 4 / span 6;
+  font-size: 4rem;
+}
+
+#header-sub {
+  grid-column: 3 / span 8;
+  font-size: 3rem;
+  text-align: center;
+} */
 
 
 
-
+/*
 
 
 
@@ -90,7 +162,6 @@ blockquote {
 
 blockquote p {
   color: black;
-  /* background-color: white; */
   font-size: 4rem;
   display: inline;
   line-height: 1;
@@ -104,4 +175,4 @@ button {
   color: rgb(175, 240, 234);
   z-index: 100;
   position: absolute;
-}
+} */

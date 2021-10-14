@@ -25,11 +25,11 @@ function EdgeShape(props) {
     // const b = document.body.getBoundingClientRect().bottom;
     // ref.current.position.z = b * 0.01
 
-    const b = document.body.getBoundingClientRect().top;
+    const t = document.body.getBoundingClientRect().top;
     // console.log(b)
-    ref.current.scale.x = Math.max(1, -b * 0.01);
-    ref.current.scale.y = Math.max(1, -b * 0.01);
-    ref.current.scale.z = Math.max(1, -b * 0.01);
+    ref.current.scale.x = Math.max(1, -t * 0.004);
+    ref.current.scale.y = Math.max(1, -t * 0.004);
+    ref.current.scale.z = Math.max(1, -t * 0.004);
 
     ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "white").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })

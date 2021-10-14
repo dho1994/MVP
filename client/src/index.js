@@ -8,10 +8,11 @@ import CameraControls from './components/CameraControls.jsx';
 import Star from './components/Star.jsx';
 // import Starlink from './components/Starlink.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
+import SelectedSatelliteInfo from './components/SelectedSatelliteInfo.jsx';
 
 import * as THREE from 'three';
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
 
 import { Stars } from '@react-three/drei';
@@ -46,27 +47,36 @@ function InstancedAsset({ url, orientation }) {
   // var longitude = THREE.MathUtils.randFloatSpread(360);
   // var latitude = THREE.MathUtils.randFloatSpread(180);
 
-  const longitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 180) : -THREE.MathUtils.randFloat(0, 180);
-  const latitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 90) : -THREE.MathUtils.randFloat(0, 90);
+  const longitude = orientation === "left" ? -115 : 115;
+  const latitude = orientation === "left" ? 65 : -65;
   var coordinates = [longitude, latitude];
+  console.log(coordinates)
   var vectorCoordinates = vertex(coordinates, 10);
   return (<primitive object={scene} scale={0.05} position={vectorCoordinates} />)
 };
 
-function Background() {
+function Background({ spaceTexture }) {
   const { scene } = useThree();
-  const loader = new THREE.TextureLoader();
-  const texture = loader.load(
-    "/assets/space dark.jpg"
-  );
+  // const loader = new THREE.TextureLoader();
+  // const texture = loader.load(
+  //   url
+  // );
   // Set the scene background property to the resulting texture.
-  scene.background = texture;
+  scene.background = spaceTexture;
   return null;
 }
 
-
-
-// document.body.onscroll = () => { console.log('scrolled') }
+// const onScrollFunc = () => {
+//   console.log('scrolled');
+//   const t = document.body.getBoundingClientRect().top;
+//   const h = document.body.getBoundingClientRect().height;
+//   // console.log(-t / h > 0.15);
+//   // if (-t / h > 0.15) {
+//   //   setShowIndicator(false);
+//   //   console.log('hi')
+//   // }
+//   // console.log(document.body.getBoundingClientRect());
+// }
 
 const Reposition = () => {
   const { camera } = useThree();
@@ -82,8 +92,47 @@ const Reposition = () => {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [starlinks, setStarlinks] = useState([]);
+  const [selectedStarlink, setSelectedStarlink] = useState({});
+  const [showIndicator, setShowIndicator] = useState(true);
+  const spaceTexture = useMemo(() => new THREE.TextureLoader().load("/assets/space dark.jpg"), []);
+
+  const getStarlinks = () => {
+    axios.get('/starlinks')
+      .then((result) => {
+        console.log('result of get starlinks', result);
+        setStarlinks(result.data.docs);
+        setSelectedStarlink(result.data.docs[0]);
+      })
+      .catch((error) => {
+        console.log('error getting starlinks from server!', error);
+      })
+  }
+
+  useEffect(() => {
+    getStarlinks();
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    document.body.onscroll = () => {
+      console.log('scrolled');
+      const t = document.body.getBoundingClientRect().top;
+      const h = document.body.getBoundingClientRect().height;
+      // console.log(-t / h > 0.1);
+      if (-t / h > 0.1) {
+        setShowIndicator(false);
+        console.log('set show indicator to false')
+      } else {
+        setShowIndicator(true);
+        console.log('set show indicator to true')
+      }
+    }
+  }, []);
+
   return (
-    <div id="main-canvas" onClick={() => { console.log('clicked') }}>
+    <div id="main-canvas" onClick={() => { console.log('clicked') }} >
       <Canvas>
         <Suspense fallback={null}>
           {/* {Array(3).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)} */}
@@ -101,7 +150,7 @@ function App() {
         {/* <Box position={[-1.2, 0, 0]} />
         <Box position={[1.2, 0, 0]} /> */}
         {/* <EdgeShape /> */}
-        <Background />
+        <Background spaceTexture={spaceTexture} />
         <CameraControls />
         {/* {Array(2000).fill().map((element, index) => <Star key={index}/>)} */}
         <Stars
@@ -114,15 +163,27 @@ function App() {
         />
         {/* <Reposition /> */}
         {/* {Array(50).fill().map((element, index) => <Starlink key={index} />)} */}
-        <StarlinkContainer />
-        <gridHelper args={[10, 10, `white`, `gray`]} />
+        <StarlinkContainer starlinks={starlinks} selectedStarlink={selectedStarlink} setSelectedStarlink={setSelectedStarlink} />
+        {/* <gridHelper args={[10, 10, `white`, `gray`]} /> */}
       </Canvas>
-      <div id='testText'>TEST TEXT </div>
-      <div id='selected-satellite-info'>TEST TEXT </div>
-
+      <>
+        {showIndicator
+          ? (
+          // <div id='indicator-text'>Scroll for more</div>
+          <img
+          id='indicator-arrow'
+          src="/assets/icons8-chevron-100.png"
+        />
+          )
+          : null
+        }
+      </>
+      <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
-
-        <header>
+          <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
+          {/* <h1 id="header-sub">Join the Waiting List</h1> */}
+          <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1>
+        {/* <header>
           <h1>Blah</h1>
           <p>🚀 Blah blah blah!</p>
         </header>
@@ -152,7 +213,7 @@ function App() {
 
         <blockquote>
           <p>Thanks for watching!</p>
-        </blockquote>
+        </blockquote> */}
 
       </main>
 
