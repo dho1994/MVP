@@ -76,9 +76,14 @@ main {
 
 /* #indicator-text, */
 .selected-satellite-details {
-  font-size: 1rem;
+  font-size: 0.9rem;
 	animation: fadeIn 1s;
-  	opacity: 1;
+  opacity: 1;
+  line-height: 1.3rem;
+}
+
+#selected-satellite-name {
+  font-size: 1rem;
 }
 
 @keyframes fadeIn {
