@@ -52,8 +52,8 @@ function InstancedAsset({ url, orientation }) {
   const longitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 180) : -THREE.MathUtils.randFloat(0, 180);
   const latitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 90) : -THREE.MathUtils.randFloat(0, 90);
   var coordinates = [longitude, latitude];
-  var vectorCoordinates = vertex(coordinates, 5);
-  return (<primitive object={scene} scale={0.025} position={vectorCoordinates} />)
+  var vectorCoordinates = vertex(coordinates, 10);
+  return (<primitive object={scene} scale={0.05} position={vectorCoordinates} />)
 };
 
 function Background() {
