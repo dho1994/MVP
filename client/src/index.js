@@ -117,7 +117,8 @@ function App() {
         <StarlinkContainer />
         <gridHelper args={[10, 10, `white`, `gray`]} />
       </Canvas>
-      <div id='testText'>WHY DOESN'T THIS SHOW UP. make "reset camera" button. </div>
+      <div id='testText'>TEST TEXT </div>
+      <div id='selected-satellite-info'>TEST TEXT </div>
 
       <main>
 

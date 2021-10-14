@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
-  font-family: 'Helvetica Neue';
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   /* font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, Roboto,
     Ubuntu, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
 }
@@ -14,6 +15,11 @@ body,
   padding: 0;
 }
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -22,7 +28,6 @@ canvas {
 
 main {
   width: 100vw;
-  color: white;
   z-index: 99;
   position: absolute;
   width: 100%;
@@ -36,7 +41,6 @@ main {
 #testText {
   z-index: 99;
   position: absolute;
-  color: white;
   bottom: 10%;
   left: 0;
   right: 0;
@@ -45,6 +49,20 @@ main {
   text-align: center;
   width: 30%;
 }
+
+#selected-satellite-info {
+  z-index: 99;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+
+
+
+
+
+
 
 header {
   background: var(--dark-bg);
