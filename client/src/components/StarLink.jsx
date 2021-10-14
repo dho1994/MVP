@@ -1,9 +1,6 @@
 import ReactDOM from 'react-dom'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Suspense } from 'react'
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import * as THREE from 'three';
 
@@ -20,16 +17,6 @@ function vertex(point, radius) {
 
   return new THREE.Vector3(x, y, z);
 }
-
-function Asset({ url }) {
-  const gltf = useLoader(GLTFLoader, url)
-  var longitude = THREE.MathUtils.randFloatSpread(360);
-  var latitude = THREE.MathUtils.randFloatSpread(180);
-
-  var coordinates = [longitude, latitude];
-  var vectorCoordinates = vertex(coordinates, 50);
-  return (<primitive object={gltf.scene} scale={2.5} position={vectorCoordinates} />)
-};
 
 function Starlink(props) {
   const ref = useRef();
@@ -72,39 +59,26 @@ function Starlink(props) {
     // ref.current.position.y += 0.01;
     // ref.current.position.z += 0.01;
     // console.log(ref.current)
-    if (ref.current !== null) {
-      ref.current.rotation.x += 0.01;
-      ref.current.rotation.y += 0.01;
-      ref.current.rotation.z += 0.01;
-      ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "black").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
-    }
+    ref.current.rotation.x += 0.01;
+    ref.current.rotation.y += 0.01;
+    ref.current.rotation.z += 0.01;
+    ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "black").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })
 
-  props.selectedStarlink.id === props.starlink.id ? console.log(props.selectedStarlink.spaceTrack.OBJECT_NAME, props.selectedStarlink.latitude, props.selectedStarlink.longitude) : null;
-
   return (
-    <>
-      {props.selectedStarlink.id === props.starlink.id
-        ? (
-          <Suspense fallback={null}>
-            <Asset url="/assets/satellite (1)/scene.gltf" />
-          </Suspense>
-        )
-        : (
-          <mesh
-            ref={ref}
-            // position={[x, y, z]}
-            // position={new THREE.Vector3().setFromSphericalCoords(10, 360, 360)}
-            position={vectorCoordinates}
-            onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink);}}
-            onPointerOut={(event) => { setHover(false); }}
-          >
-            {/* <sphereGeometry args={[0.5, 24, 24]} /> */}
-            <octahedronGeometry args={[0.5]} />
-            <meshStandardMaterial color="black" wireframe={true} />
-          </mesh >
-        )}
-    </>
+    <mesh
+      ref={ref}
+      // position={[x, y, z]}
+      // position={new THREE.Vector3().setFromSphericalCoords(10, 360, 360)}
+      position={vectorCoordinates}
+      // onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink); }}
+      onPointerOver={(event) => { setHover(true); }}
+      onPointerOut={(event) => { setHover(false); }}
+    >
+      <sphereGeometry args={[0.5, 24, 24]} wireframe={true} />
+      {/* <octahedronGeometry args={[0.5]} /> */}
+      <meshStandardMaterial color="black" wireframe={true} />
+    </mesh >
   )
 }
 
