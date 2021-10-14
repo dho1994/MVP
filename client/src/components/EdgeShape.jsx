@@ -16,9 +16,12 @@ function EdgeShape(props) {
     // ref.current.rotation.x += 0.01;
     // ref.current.rotation.y += 0.01;
     // ref.current.rotation.z += 0.01;
-    ref.current.rotation.x += active ? -0.01 : 0.01;
-    ref.current.rotation.y += active ? -0.01 : 0.01;
-    ref.current.rotation.z += active ? -0.01 : 0.01;
+    // ref.current.rotation.x += active ? -0.01 : 0.01;
+    // ref.current.rotation.y += active ? -0.01 : 0.01;
+    // ref.current.rotation.z += active ? -0.01 : 0.01;
+    ref.current.rotation.x += hovered ? -0.005 : 0.01;
+    ref.current.rotation.y += hovered ? -0.005 : 0.01;
+    ref.current.rotation.z += hovered ? -0.005 : 0.01;
     // const b = document.body.getBoundingClientRect().bottom;
     // ref.current.position.z = b * 0.01
 
@@ -31,9 +34,9 @@ function EdgeShape(props) {
     ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "white").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })
 
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'pointer' : 'auto'
-  }, [hovered])
+  // useEffect(() => {
+  //   document.body.style.cursor = hovered ? 'pointer' : 'auto'
+  // }, [hovered])
 
   return (
     <mesh
@@ -41,8 +44,8 @@ function EdgeShape(props) {
       ref={ref}
       scale={1}
       onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => {setHover(true);}}
-      onPointerOut={(event) => {setHover(false);}}
+      onPointerOver={(event) => { setHover(true); }}
+      onPointerOut={(event) => { setHover(false); }}
     >
       <sphereGeometry args={[1, 6, 3]} />
       <meshStandardMaterial wireframe={true} />

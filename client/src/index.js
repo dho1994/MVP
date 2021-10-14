@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+
 import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
 import Star from './components/Star.jsx';
-import StarLink from './components/StarLink.jsx';
+import Starlink from './components/Starlink.jsx';
 
 import * as THREE from 'three';
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
 
 // Extend will make OrbitControls available as a JSX element called orbitControls for us to use.
@@ -20,29 +22,36 @@ import { Suspense } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
+function vertex(point, radius) {
+  const lambda = point[0] * Math.PI / 180;
+  const phi = point[1] * Math.PI / 180;
+  const cosPhi = Math.cos(phi);
+
+  const x = radius * cosPhi * Math.cos(lambda);
+  const y = radius * cosPhi * Math.sin(lambda);
+  const z = radius * Math.sin(phi);
+
+  return [x, y, z];
+}
+
 // // "Boba Tea" (https://skfb.ly/6UpwE) by Felix Yadomi is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 // function Asset({ url }) {
 //   const gltf = useLoader(GLTFLoader, url)
 //   const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
 //   return (<primitive object={gltf.scene} scale={0.025} position={[x, y, z]} />)
 // };
+
+// "Satellite" (https://skfb.ly/6XLMU) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 function InstancedAsset({ url }) {
   const gltf = useLoader(GLTFLoader, url)
-  // console.log(gltf)
-  // [geometry, setGeometry] = useState(undefined);
-  // console.log(geometry);
-  // if (!geometry) {
-  //   console.log(geometry);
-
-  //   // Scene settings
-  //   const scene = gltf.scene.clone(true); // so we can instantiate multiple copies of this geometry
-  //   // setCastShadow(scene.children, true);
-  //   // setReceiveShadow(scene.children, true);
-  //   setGeometry(scene);
-  // }
   const scene = gltf.scene.clone(true);
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
-  return (<primitive object={scene} scale={0.025} position={[x, y, z]} />)
+  // const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
+  var longitude = THREE.MathUtils.randFloatSpread(360);
+  var latitude = THREE.MathUtils.randFloatSpread(180);
+
+  var coordinates = [longitude, latitude];
+  var vectorCoordinates = vertex(coordinates, 10);
+  return (<primitive object={scene} scale={0.025} position={vectorCoordinates} />)
 };
 
 function Background() {
@@ -65,6 +74,7 @@ const CameraControls = () => {
   // Ref to the controls, so that we can update them on every frame with useFrame
   const controls = useRef();
   useFrame(() => controls.current.update());
+  // console.log(controls)
   return (
     <orbitControls
       ref={controls}
@@ -93,13 +103,34 @@ const Reposition = () => {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [starlinks, setStarlinks] = useState([]);
+  const [selectedStarlink, setSelectedStarlink] = useState({});
+
+  const getStarlinks = () => {
+    axios.get('/starlinks')
+      .then((result) => {
+        console.log('result of get starlinks', result);
+        setStarlinks(result.data.docs);
+        setSelectedStarlink(result.data.docs[0]);
+      })
+      .catch((error) => {
+        console.log('error getting starlinks from server!', error);
+      })
+  }
+
+  useEffect(() => {
+    getStarlinks();
+    // setStarlinks("something");
+    setIsLoading(false);
+  }, []);
+
   return (
     <div id="main-canvas" onClick={() => { console.log('clicked') }}>
       <Canvas>
-        <Suspense fallback={null}>
-        <InstancedAsset url="/assets/satellite 2/scene.gltf" />
-        <InstancedAsset url="/assets/satellite 2/scene.gltf" />
-        </Suspense>
+        {/* <Suspense fallback={null}>
+          {Array(1).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)}
+        </Suspense> */}
         {/* <Suspense fallback={null}>
           <Asset url="/assets/satellite 2/scene.gltf" />
         </Suspense>
@@ -123,10 +154,18 @@ function App() {
           fade // Faded dots (default=false)
         />
         {/* <Reposition /> */}
-        {Array(50).fill().map((element, index) => <StarLink key={index} />)}
+        {/* {Array(50).fill().map((element, index) => <Starlink key={index} />)} */}
+        {starlinks.map((starlink) => (
+          <Starlink
+            key={starlink.id}
+            starlink={starlink}
+            selectedStarlink={selectedStarlink}
+            setSelectedStarlink={setSelectedStarlink}
+          />)
+        )}
         <gridHelper args={[10, 10, `white`, `gray`]} />
       </Canvas>
-      <div id='testText'>WHY DOESN'T THIS SHOW UP</div>
+      <div id='testText'>WHY DOESN'T THIS SHOW UP. make "reset camera" button. </div>
 
       <main>
 
@@ -139,7 +178,7 @@ function App() {
           <p>Blah blah blah</p>
         </blockquote>
 
-        <section class="left">
+        <section className="left">
           <h2>Blah</h2>
 
           <h3>Blah</h3>
