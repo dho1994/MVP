@@ -28,7 +28,6 @@ function StarlinkContainer(props) {
 
   useEffect(() => {
     getStarlinks();
-    // setStarlinks("something");
     setIsLoading(false);
   }, []);
 

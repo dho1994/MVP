@@ -19,9 +19,9 @@ function EdgeShape(props) {
     // ref.current.rotation.x += active ? -0.01 : 0.01;
     // ref.current.rotation.y += active ? -0.01 : 0.01;
     // ref.current.rotation.z += active ? -0.01 : 0.01;
-    ref.current.rotation.x += hovered ? -0.005 : 0.01;
-    ref.current.rotation.y += hovered ? -0.005 : 0.01;
-    ref.current.rotation.z += hovered ? -0.005 : 0.01;
+    ref.current.rotation.x += hovered ? -0.0025 : 0.005;
+    ref.current.rotation.y += hovered ? -0.0025 : 0.005;
+    ref.current.rotation.z += hovered ? -0.0025 : 0.005;
     // const b = document.body.getBoundingClientRect().bottom;
     // ref.current.position.z = b * 0.01
 

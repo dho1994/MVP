@@ -29,10 +29,6 @@ function Starlink(props) {
   // console.log(vectorCoordinates);
 
   useFrame((state, delta) => {
-    // ref.current.position.x += 0.01;
-    // ref.current.position.y += 0.01;
-    // ref.current.position.z += 0.01;
-    // console.log(ref.current)
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
     ref.current.rotation.z += 0.01;
@@ -40,43 +36,29 @@ function Starlink(props) {
   })
 
   return (
-    <>
-      {props.selectedStarlink.id === props.starlink.id
-        ? (
-          // <Suspense fallback={null}>
-          //   <Asset url="/assets/satellite (1)/scene.gltf" />
-          // </Suspense>
-          <mesh
-            ref={ref}
-            // position={[x, y, z]}
-            // position={new THREE.Vector3().setFromSphericalCoords(10, 360, 360)}
-            position={vectorCoordinates}
-            onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink); }}
-            // onPointerOver={(event) => { setHover(true); }}
-            onPointerOut={(event) => { setHover(false); }}
-          >
-            <sphereGeometry args={[0.5, 6, 6]} />
-            {/* <octahedronGeometry args={[0.5]} /> */}
-            <meshStandardMaterial color="salmon" wireframe={true} />
-          </mesh >
-        )
-        : (
-          <mesh
-            ref={ref}
-            // position={[x, y, z]}
-            // position={new THREE.Vector3().setFromSphericalCoords(10, 360, 360)}
-            position={vectorCoordinates}
-            onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink); }}
-            // onPointerOver={(event) => { setHover(true); }}
-            onPointerOut={(event) => { setHover(false); }}
-          >
-            {/* <sphereGeometry args={[0.5, 24, 24]} wireframe={true} /> */}
-            <octahedronGeometry args={[0.5]} />
-            <meshStandardMaterial color="black" wireframe={true} />
-          </mesh >
-        )}
-    </>
-
+    <mesh
+      ref={ref}
+      position={vectorCoordinates}
+      onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink); }}
+      // onPointerOver={(event) => { setHover(true); }}
+      onPointerOut={(event) => { setHover(false); }}
+    >
+      {
+        props.selectedStarlink.id === props.starlink.id
+          ? (
+            <>
+              <sphereGeometry args={[0.5, 6, 6]} />
+              <meshStandardMaterial color="salmon" wireframe={true} />
+            </>
+          )
+          : (
+            <>
+              <octahedronGeometry args={[0.5]} />
+              <meshStandardMaterial color="black" wireframe={true} />
+            </>
+          )
+      }
+    </mesh >
   )
 }
 

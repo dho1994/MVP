@@ -43,15 +43,16 @@ function vertex(point, radius) {
 // };
 
 // "Satellite" (https://skfb.ly/6XLMU) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-function InstancedAsset({ url }) {
+function InstancedAsset({ url, orientation }) {
   const gltf = useLoader(GLTFLoader, url)
   const scene = gltf.scene.clone(true);
-  // const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
-  var longitude = THREE.MathUtils.randFloatSpread(360);
-  var latitude = THREE.MathUtils.randFloatSpread(180);
+  // var longitude = THREE.MathUtils.randFloatSpread(360);
+  // var latitude = THREE.MathUtils.randFloatSpread(180);
 
+  const longitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 180) : -THREE.MathUtils.randFloat(0, 180);
+  const latitude = orientation === "left" ? THREE.MathUtils.randFloat(0, 90) : -THREE.MathUtils.randFloat(0, 90);
   var coordinates = [longitude, latitude];
-  var vectorCoordinates = vertex(coordinates, 10);
+  var vectorCoordinates = vertex(coordinates, 5);
   return (<primitive object={scene} scale={0.025} position={vectorCoordinates} />)
 };
 
@@ -81,6 +82,7 @@ const CameraControls = () => {
       ref={controls}
       args={[camera, domElement]}
       autoRotate={true}
+      autoRotateSpeed={1}
       // enablePan={true}
       enableRotate={true}
       enableZoom={false}
@@ -108,7 +110,9 @@ function App() {
     <div id="main-canvas" onClick={() => { console.log('clicked') }}>
       <Canvas>
         <Suspense fallback={null}>
-          {Array(1).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)}
+          {/* {Array(3).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)} */}
+          <InstancedAsset url="/assets/satellite (1)/scene.gltf" orientation="left" />
+          <InstancedAsset url="/assets/satellite (1)/scene.gltf" orientation="right" />
         </Suspense>
         {/* <Suspense fallback={null}>
           <Asset url="/assets/satellite 2/scene.gltf" />
