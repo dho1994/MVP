@@ -65,6 +65,7 @@ main {
   margin-left: auto;
   margin-right: auto;
   width: 2.5rem;
+  animation: fadeIn 1s;
 }
 
 #selected-satellite-info {
@@ -88,7 +89,9 @@ main {
 
 #selected-satellite-name-floating {
   font-size: 0.7rem;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
   width: 10rem;
   z-index: -1;
   animation: fadeIn 1s;
@@ -109,7 +112,7 @@ h1 {
 
 #faster-container {
   height: 80vh;
-  padding-top: 5vh;
+  padding-top: 10vh;
 }
 
 #header-main {
@@ -236,10 +239,10 @@ input[type=text]
 
 .fade-in-section {
   opacity: 0;
-  transform: translateY(20vh);
+  /* transform: translateY(20vh); */
   visibility: hidden;
-  transition: opacity 600ms ease-out, transform 600ms ease-out,
-    visibility 600ms ease-out;
+  transition: opacity 1200ms ease-out, transform 1200ms ease-out,
+    visibility 1200ms ease-out;
   will-change: opacity, transform, visibility;
 }
 

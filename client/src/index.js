@@ -6,9 +6,9 @@ import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
 import CameraControls from './components/CameraControls.jsx';
 import Star from './components/Star.jsx';
-// import Starlink from './components/Starlink.jsx';
+import Satellites from './components/Satellites.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
-import SelectedSatelliteInfo from './components/SelectedSatelliteInfo.jsx';
+import SelectedStarlinkInfo from './components/SelectedStarlinkInfo.jsx';
 import WaitlistForm from './components/WaitlistForm.jsx';
 import Fade from './components/Fade.jsx';
 
@@ -18,44 +18,6 @@ import { useRef, useState, useEffect, useMemo } from 'react'
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
 
 import { Stars } from '@react-three/drei';
-
-import { Suspense } from 'react'
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-
-function vertex(point, radius) {
-  const lambda = point[0] * Math.PI / 180;
-  const phi = point[1] * Math.PI / 180;
-  const cosPhi = Math.cos(phi);
-
-  const x = radius * cosPhi * Math.cos(lambda);
-  const y = radius * cosPhi * Math.sin(lambda);
-  const z = radius * Math.sin(phi);
-
-  return [x, y, z];
-}
-
-// // "Boba Tea" (https://skfb.ly/6UpwE) by Felix Yadomi is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-// function Asset({ url }) {
-//   const gltf = useLoader(GLTFLoader, url)
-//   const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(4));
-//   return (<primitive object={gltf.scene} scale={0.025} position={[x, y, z]} />)
-// };
-
-// "Satellite" (https://skfb.ly/6XLMU) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-function InstancedAsset({ url, orientation }) {
-  const gltf = useLoader(GLTFLoader, url)
-  const scene = gltf.scene.clone(true);
-  // var longitude = THREE.MathUtils.randFloatSpread(360);
-  // var latitude = THREE.MathUtils.randFloatSpread(180);
-
-  const longitude = orientation === "left" ? -115 : 115;
-  const latitude = orientation === "left" ? 65 : -65;
-  var coordinates = [longitude, latitude];
-  // console.log(coordinates)
-  var vectorCoordinates = vertex(coordinates, 10);
-  return (<primitive object={scene} scale={0.05} position={vectorCoordinates} />)
-};
 
 function Background({ spaceTexture }) {
   const { scene } = useThree();
@@ -100,10 +62,6 @@ function App() {
   const [showIndicator, setShowIndicator] = useState(true);
   const [showStarlinkName, setShowStarlinkName] = useState(true);
   const spaceTexture = useMemo(() => new THREE.TextureLoader().load("/assets/space dark.jpg"), []);
-
-  const handleCanvasClick = () => {
-    // console.log('clicked');
-  };
 
   const getStarlinks = () => {
     axios.get('/starlinks')
@@ -154,19 +112,9 @@ function App() {
   }, []);
 
   return (
-    <div id="main-canvas" onClick={handleCanvasClick} >
+    <div id="main-canvas" >
       <Canvas>
-        <Suspense fallback={null}>
-          {/* {Array(3).fill().map((element, index) => <InstancedAsset url="/assets/satellite (1)/scene.gltf" key={index} />)} */}
-          <InstancedAsset url="/assets/satellite (1)/scene.gltf" orientation="left" />
-          <InstancedAsset url="/assets/satellite (1)/scene.gltf" orientation="right" />
-        </Suspense>
-        {/* <Suspense fallback={null}>
-          <Asset url="/assets/satellite 2/scene.gltf" />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Asset url="/assets/satellite 2/scene.gltf" />
-        </Suspense> */}
+        <Satellites />
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         {/* <Box position={[-1.2, 0, 0]} />
@@ -209,7 +157,7 @@ function App() {
           : null
         }
       </>
-      <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
+      <SelectedStarlinkInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
         {/* <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1> */}
         {/* <h1 id="header-main">
