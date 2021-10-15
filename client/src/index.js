@@ -203,9 +203,20 @@ function App() {
       <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
         <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
-        <h1 id="header-sub">Join the Waiting List</h1>
-        {/* <h1 id="header-sub"><a href="https://www.starlink.com/">Order Now</a></h1> */}
-        <WaitlistForm />
+        {/* <h1 id="header-sub-wait">Join the Waiting List</h1> */}
+        <div id="order-container">
+          {/* <h1 id="header-sub-order">
+            <a href="https://www.starlink.com/">Order Now</a>
+          </h1> */}
+          <a href="https://www.starlink.com/">
+            <img
+              id='starlink-logo'
+              src="/assets/Starlink_Logo.svg"
+              alt="Logo of Starlink - Date 21 August 2019 - www.starlink.com - SpaceX (Public domain, via Wikimedia Commons)"
+            />
+          </a>
+        </div>
+        {/* <WaitlistForm /> */}
       </main>
     </div>
   )
