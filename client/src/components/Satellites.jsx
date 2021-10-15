@@ -29,7 +29,22 @@ function InstancedSatellite({ url, orientation, music, setMusic }) {
   var coordinates = [longitude, latitude];
   // console.log(coordinates)
   var vectorCoordinates = vertex(coordinates, 10);
-  return (<primitive object={scene} scale={0.05} position={vectorCoordinates} onClick={() => { setMusic(!music) }} />)
+
+  // const rotation = orientation === "left" ? [-0.5, -5, 0] : [-0.5, 0, 0];
+  const rotation = orientation === "left" ? [-0.5, 0, 0] : [-0.5, 0, 0];
+
+  // // musical note 3d model
+  // const gltfMusic = useLoader(GLTFLoader, "/assets/speaker_and_music_notes/scene.gltf");
+  // const sceneMusic = gltfMusic.scene.clone(true);
+  // var musicCoordinates = [longitude - 20, latitude - 20];
+  // var musicVectorCoordinates = vertex(coordinates, 12);
+
+  return (
+    <group>
+      <primitive object={scene} scale={0.05} rotation={rotation} position={vectorCoordinates} onClick={() => { setMusic(!music) }} />
+      {/* <primitive object={sceneMusic} scale={0.2} position={musicVectorCoordinates} onClick={() => { setMusic(!music) }} /> */}
+    </group>
+  )
 };
 
 function vertex(point, radius) {
@@ -68,6 +83,17 @@ function Satellites(props) {
       {/* {Array(3).fill().map((element, index) => <InstancedSatellite url="/assets/satellite/scene.gltf" key={index} />)} */}
       <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="left" music={music} setMusic={setMusic} />
       <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="right" music={music} setMusic={setMusic} />
+      {/* {['left', 'right'].map((orientation) =>
+        <group>
+          <InstancedSatellite
+            url="/assets/satellite/scene.gltf"
+            key={orientation}
+            orientation={orientation}
+            music={music}
+            setMusic={setMusic}
+          />
+        </group>
+      )} */}
     </Suspense>
   )
 }
