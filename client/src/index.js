@@ -10,6 +10,7 @@ import Star from './components/Star.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
 import SelectedSatelliteInfo from './components/SelectedSatelliteInfo.jsx';
 import WaitlistForm from './components/WaitlistForm.jsx';
+import Fade from './components/Fade.jsx';
 
 import * as THREE from 'three';
 
@@ -141,6 +142,14 @@ function App() {
         setShowIndicator(true);
         // console.log('set show indicator to true')
       }
+
+      // console.log(t);
+      // if (currentScroll <= checkpoint) {
+      //   opacity = 1 - currentScroll / checkpoint;
+      // } else {
+      //   opacity = 0;
+      // }
+      // document.querySelector(".front").style.opacity = opacity;
     }
   }, []);
 
@@ -202,19 +211,31 @@ function App() {
       </>
       <SelectedSatelliteInfo isLoading={isLoading} selectedStarlink={selectedStarlink} key={selectedStarlink.id} />
       <main>
-        <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
+        {/* <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1> */}
+        {/* <h1 id="header-main">
+          <Fade>
+            FASTER THAN THE SPEED OF LIGHT
+          </Fade>
+        </h1> */}
+        <div id="faster-container">
+          <Fade>
+            <h1 id="header-main">FASTER THAN THE SPEED OF LIGHT</h1>
+          </Fade>
+        </div>
         {/* <h1 id="header-sub-wait">Join the Waiting List</h1> */}
         <div id="order-container">
           {/* <h1 id="header-sub-order">
             <a href="https://www.starlink.com/">Order Now</a>
           </h1> */}
-          <a href="https://www.starlink.com/">
-            <img
-              id='starlink-logo'
-              src="/assets/Starlink_Logo.svg"
-              alt="Logo of Starlink - Date 21 August 2019 - www.starlink.com - SpaceX (Public domain, via Wikimedia Commons)"
-            />
-          </a>
+          <Fade>
+            <a href="https://www.starlink.com/">
+              <img
+                id='starlink-logo'
+                src="/assets/Starlink_Logo.svg"
+                alt="Logo of Starlink - Date 21 August 2019 - www.starlink.com - SpaceX (Public domain, via Wikimedia Commons)"
+              />
+            </a>
+          </Fade>
         </div>
         {/* <WaitlistForm /> */}
       </main>
