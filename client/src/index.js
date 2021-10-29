@@ -1,14 +1,13 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ReactDOM from 'react-dom';
-import axios from 'axios';
-import * as THREE from 'three';
 import { Canvas, useThree } from '@react-three/fiber'
 import { Stars } from '@react-three/drei';
+import * as THREE from 'three';
+import axios from 'axios';
 
 import CameraControls from './components/CameraControls.jsx';
-import EdgeShape from './components/EdgeShape.jsx';
 import Satellites from './components/Satellites.jsx';
-import StarlinkContainer from './components/StarlinkContainer.jsx';
+import Starlink from './components/Starlink.jsx';
 import SelectedStarlinkInfo from './components/SelectedStarlinkInfo.jsx';
 import Fade from './components/Fade.jsx';
 
@@ -75,12 +74,15 @@ function App() {
           saturation={0}
           fade
         />
-        <StarlinkContainer
-          starlinks={starlinks}
-          selectedStarlink={selectedStarlink}
-          setSelectedStarlink={setSelectedStarlink}
-          showStarlinkName={showStarlinkName}
-        />
+        {starlinks.map((starlink, index) => (
+          <Starlink
+            key={index}
+            starlink={starlink}
+            selectedStarlink={selectedStarlink}
+            setSelectedStarlink={setSelectedStarlink}
+            showStarlinkName={showStarlinkName}
+          />)
+        )}
       </Canvas>
       <>
         {showIndicator
