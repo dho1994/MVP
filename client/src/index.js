@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Box from './components/TestBlocks.jsx';
 import EdgeShape from './components/EdgeShape.jsx';
 import CameraControls from './components/CameraControls.jsx';
 import Star from './components/Star.jsx';
 import Satellites from './components/Satellites.jsx';
 import StarlinkContainer from './components/StarlinkContainer.jsx';
 import SelectedStarlinkInfo from './components/SelectedStarlinkInfo.jsx';
-import WaitlistForm from './components/WaitlistForm.jsx';
 import Fade from './components/Fade.jsx';
 
 import * as THREE from 'three';

@@ -18,7 +18,7 @@ const toggleAudio = () => {
 }
 
 // "Satellite" (https://skfb.ly/6XLMU) by MOJackal is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-function InstancedSatellite({ url, orientation, music, setMusic }) {
+function InstancedSatellite({ url, orientation, music, setMusic, setHover }) {
   const gltf = useLoader(GLTFLoader, url)
   const scene = gltf.scene.clone(true);
   // var longitude = THREE.MathUtils.randFloatSpread(360);
@@ -41,8 +41,17 @@ function InstancedSatellite({ url, orientation, music, setMusic }) {
 
   return (
     <group>
-      <primitive object={scene} scale={0.05} rotation={rotation} position={vectorCoordinates} onClick={() => { setMusic(!music) }} />
+      <primitive object={scene} scale={0.05} rotation={rotation} position={vectorCoordinates} />
       {/* <primitive object={sceneMusic} scale={0.2} position={musicVectorCoordinates} onClick={() => { setMusic(!music) }} /> */}
+      <mesh
+      position={vectorCoordinates}
+      onClick={() => { setMusic(!music) }}
+      onPointerOver={(event) => { setHover(true); console.log('worked')}}
+      onPointerOut={(event) => { setHover(false); }}
+    >
+      <boxGeometry args={[1, 0.5, 0.5]} />
+      <meshStandardMaterial transparent={true} opacity={0} />
+    </mesh>
     </group>
   )
 };
@@ -61,6 +70,7 @@ function vertex(point, radius) {
 
 function Satellites(props) {
   const [music, setMusic] = useState(false);
+  const [hovered, setHover] = useState(false);
 
   useEffect(() => {
     // console.log(audio.readyState);
@@ -78,11 +88,15 @@ function Satellites(props) {
     }
   }, [music]);
 
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto'
+  }, [hovered])
+
   return (
     <Suspense fallback={null}>
       {/* {Array(3).fill().map((element, index) => <InstancedSatellite url="/assets/satellite/scene.gltf" key={index} />)} */}
-      <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="left" music={music} setMusic={setMusic} />
-      <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="right" music={music} setMusic={setMusic} />
+      <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="left" music={music} setMusic={setMusic} setHover={setHover} />
+      <InstancedSatellite url="/assets/satellite/scene.gltf" orientation="right" music={music} setMusic={setMusic} setHover={setHover} />
       {/* {['left', 'right'].map((orientation) =>
         <group>
           <InstancedSatellite
