@@ -1,60 +1,50 @@
-import ReactDOM from 'react-dom'
 import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-
+import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei';
-
 import * as THREE from 'three';
 
-// Helper function for converting coordinates [longitude, latitude] into a THREE.Vector3 in (x, y, z) plane
-// Points will be positioned according to a given radius from the center
-function vertex(point, radius) {
-  const lambda = point[0] * Math.PI / 180;
-  const phi = point[1] * Math.PI / 180;
-  const cosPhi = Math.cos(phi);
-
-  const x = radius * cosPhi * Math.cos(lambda);
-  const y = radius * cosPhi * Math.sin(lambda);
-  const z = radius * Math.sin(phi);
-
-  return new THREE.Vector3(x, y, z);
-}
+import vertex from '../helpers/vertex.js';
 
 function Starlink(props) {
-  const ref = useRef();
   const [hovered, setHover] = useState(false);
+  const ref = useRef();
+  const {
+    starlink,
+    selectedStarlink,
+    setSelectedStarlink,
+    showStarlinkName
+  } = props;
 
   const color = new THREE.Color();
 
-  const coordinates = [props.starlink.longitude, props.starlink.latitude];
+  const coordinates = [starlink.longitude, starlink.latitude];
   const vectorCoordinates = vertex(coordinates, 50);
-  // console.log(vectorCoordinates);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
     ref.current.rotation.z += 0.01;
-    // ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "black").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })
 
   return (
     <mesh
       ref={ref}
       position={vectorCoordinates}
-      onPointerOver={(event) => { setHover(true); props.setSelectedStarlink(props.starlink); }}
-      // onPointerOver={(event) => { setHover(true); }}
-      onPointerOut={(event) => { setHover(false); }}
+      onPointerOver={() => {
+        setHover(true);
+        setSelectedStarlink(starlink);
+      }}
+      onPointerOut={() => setHover(false)}
     >
       {
-        props.selectedStarlink.id === props.starlink.id
+        selectedStarlink.id === starlink.id
           ? (
             <>
               <sphereGeometry args={[0.5, 6, 6]} />
-              {/* <meshStandardMaterial color="salmon" wireframe={true} /> */}
               <meshStandardMaterial color="rgb(223,115,255)" wireframe={true} />
-              {props.showStarlinkName
+              {showStarlinkName
                 ? (<Html position={[0, 0, 0]}>
-                  <div id="selected-satellite-name-floating">{props.selectedStarlink.spaceTrack.OBJECT_NAME}</div>
+                  <div id="selected-satellite-name-floating">{selectedStarlink.spaceTrack.OBJECT_NAME}</div>
                 </Html>)
                 : null
               }

@@ -2,8 +2,6 @@
   box-sizing: border-box;
   color: white;
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, Roboto,
-    Ubuntu, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
 }
 
 html {
@@ -31,30 +29,13 @@ canvas {
 }
 
 main {
-  /* width: 100vw; */
   z-index: 99;
   position: absolute;
   width: 100%;
   margin: 0px auto;
-  /* padding: 120px 0px; */
-
-  /* display: grid;
-  grid-template-columns: repeat(12, 1fr); */
   display: flex;
   flex-direction: column;
 }
-
-/* #indicator-text {
-  z-index: 99;
-  position: fixed;
-  bottom: 10%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 30%;
-} */
 
 #indicator-arrow {
   z-index: 99;
@@ -75,7 +56,6 @@ main {
   right: 5%;
 }
 
-/* #indicator-text, */
 .selected-satellite-details {
   font-size: 0.9rem;
 	animation: fadeIn 1s;
@@ -89,7 +69,6 @@ main {
 
 #selected-satellite-name-floating {
   font-size: 0.7rem;
-  /* padding: 0.5rem; */
   padding-left: 0.5rem;
   padding-top: 0.5rem;
   width: 10rem;
@@ -118,10 +97,7 @@ h1 {
 #header-main {
   font-family: 'Roboto', sans-serif;
   width: 50rem;
-  /* font-size: 6rem; */
   font-size: 5rem;
-  /* margin-left: auto;
-  margin-right: auto; */
   margin: 0 auto;
   text-align: center;
   font-weight: 600;
@@ -130,27 +106,13 @@ h1 {
 
 #order-container {
   text-align: center;
-  /* margin-top: 45%;
-  margin-bottom: 27%; */
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: center;
 }
 
-#header-sub-order {
-  font-size: 4.5rem;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: 500;
-  margin-bottom: 0;
-}
-
-#header-sub-order a {
-  text-decoration: none;
-}
-
 #starlink-logo {
-  /* color: green; */
   width: 10%;
   margin-left: auto;
   margin-right: auto;
@@ -159,87 +121,8 @@ h1 {
   /* https://codepen.io/sosuke/pen/Pjoqqp */
 }
 
-#header-sub-wait {
-  font-size: 4.5rem;
-  text-align: center;
-  /* margin: 45% 0; */
-  margin-top: 45%;
-  /* margin-bottom: 10%; */
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: 500;
-}
-
-#waitlist-form {
-  width: 50rem;
-  font-size: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  background: rgba(0, 0, 0, .3);
-  border-radius: 1rem;
-  margin-bottom: 13%;
-  /* box-shadow: 0.04rem 0.04rem aqua; */
-}
-
-.waitlist-form-container {
-  opacity: 1;
-  /* padding: 1rem 2rem; */
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 2rem;
-}
-
-.waitlist-form-label {
-  color: white;
-  font-size: 1.2rem;
-  text-shadow: 0.04rem 0.04rem aqua;
-}
-
-.waitlist-form-input {
-  color: darkgray;
-  border-radius: 0.6rem;
-  /* background: rgba(0, 0, 0, .05); */
-  background: rgba(255, 255, 255, .05);
-  height: 2rem;
-  margin-top: 1rem;
-  padding: 0 1rem;
-}
-
-#waitlist-form-container-top {
-  margin-top: 1rem;
-}
-
-/* #waitlist-form-container-bottom {
-  margin-bottom: 3rem;
-} */
-
-#waitlist-form-button-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-#waitlist-form-button {
-  /* padding: 1rem 2rem; */
-  /* border-radius: 1rem; */
-  margin: 1rem 2rem;
-  margin-bottom: 1rem;
-  padding: 0 1.2rem;
-  color: white;
-  text-align: center;
-  color: white;
-  text-shadow: 0.04rem 0.04rem aqua;
-}
-
-input[type=email],
-input[type=text]
-{
-  color: white;
-  text-transform:uppercase;
-}
-
-
 .fade-in-section {
   opacity: 0;
-  /* transform: translateY(20vh); */
   visibility: hidden;
   transition: opacity 1200ms ease-out, transform 1200ms ease-out,
     visibility 1200ms ease-out;

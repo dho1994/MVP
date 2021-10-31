@@ -1,35 +1,26 @@
 import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three';
 
 function EdgeShape(props) {
-  // This reference will give us direct access to the THREE.Mesh object
+  const [hovered, setHover] = useState(false);
   const ref = useRef();
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
+  const { setEnabled } = props;
 
-  const color = new THREE.Color()
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
-    // ref.current.rotation.x += 0.01;
-    // ref.current.rotation.y += 0.01;
-    // ref.current.rotation.z += 0.01;
-    // ref.current.rotation.x += active ? -0.01 : 0.01;
-    // ref.current.rotation.y += active ? -0.01 : 0.01;
-    // ref.current.rotation.z += active ? -0.01 : 0.01;
-    ref.current.rotation.x += hovered ? -0.0025 : 0.005;
-    ref.current.rotation.y += hovered ? -0.0025 : 0.005;
-    ref.current.rotation.z += hovered ? -0.0025 : 0.005;
-    // const b = document.body.getBoundingClientRect().bottom;
-    // ref.current.position.z = b * 0.01
+  const color = new THREE.Color();
+
+  useFrame(() => {
+    const rotationFrame = hovered ? -0.0025 : 0.005;
+    ref.current.rotation.x += rotationFrame;
+    ref.current.rotation.y += rotationFrame;
+    ref.current.rotation.z += rotationFrame;
 
     const t = document.body.getBoundingClientRect().top;
-    // console.log(b)
-    ref.current.scale.x = Math.max(1, -t * 0.004);
-    ref.current.scale.y = Math.max(1, -t * 0.004);
-    ref.current.scale.z = Math.max(1, -t * 0.004);
+    const scaleFrame = Math.max(1, -t * 0.004);
+    ref.current.scale.x = scaleFrame;
+    ref.current.scale.y = scaleFrame;
+    ref.current.scale.z = scaleFrame;
 
     ref.current.material.color.lerp(color.set(hovered ? "darkTurquoise" : "white").convertSRGBToLinear(), hovered ? 0.1 : 0.05)
   })
@@ -40,16 +31,19 @@ function EdgeShape(props) {
 
   return (
     <mesh
-      // {...props}
       ref={ref}
       scale={1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => { setHover(true); props.setEnabled(true); }}
-      onPointerOut={(event) => { setHover(false); props.setEnabled(false); }}
+      onPointerOver={() => {
+        setHover(true);
+        setEnabled(true);
+      }}
+      onPointerOut={() => {
+        setHover(false);
+        setEnabled(false);
+      }}
     >
       <sphereGeometry args={[1, 6, 3]} />
       <meshStandardMaterial wireframe={true} />
-      {/* <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} /> */}
     </mesh>
   )
 }

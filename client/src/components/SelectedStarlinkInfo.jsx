@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 function SelectedStarlinkInfo(props) {
   const { isLoading, selectedStarlink } = props;
+
   return (
     <>
       {isLoading
