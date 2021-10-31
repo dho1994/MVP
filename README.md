@@ -11,5 +11,5 @@
 <p
   align="center">
   <img
-    alt="starlink tracker demo" src="client/demo/Starlink GIF Shortened Compressed GIF (high).gif">
+    alt="starlink tracker demo" src="client/demo/Starlink GIF Shortened Compressed GIF.gif">
 </p>
