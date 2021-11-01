@@ -64,8 +64,6 @@ One of the challenges I faced was placing the Starlink satellites based on their
 </p>
 </details>
 
-Who would have thought that the linear models class in college would come in handy some day?
-
 ### Isolated Camera Controls 
 I wanted my camera's orbit controls to be restricted to the center geometric object - so that only by clicking and dragging this object could the user rotate the camera to view other parts of the world; not by clicking and dragging anywhere else on the screen. The key was to take advantage of the `enableRotate` property on the orbit controls, which allows the user to rotate the camera. By tying the `enableRotate` property to an `enabled` state I created, I ensured that only when the user hovers the cursor over the center object would he or she be able to rotate the camera manually. 
 
