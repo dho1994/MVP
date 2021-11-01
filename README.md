@@ -8,7 +8,7 @@
 ![Webpack](https://img.shields.io/badge/-webpack-20232A?style=for-the-badge&logo=webpack&logoColor=blueviolet)
 ![Babel](https://img.shields.io/badge/-Babel-20232A?style=for-the-badge&logo=babel&logoColor=yellow)
 
-This project was a personal challenge to learn new technologies (`three.js` and `react-three-fiber`) and build an application in under three days.
+This project was a personal challenge to learn new technologies (`three.js` and `react-three-fiber`) and build a minimum viable product in under three days.
 
 Starlink Tracker tracks real-time data of Starlink satellites and positions them in the 3D world based on their latitude/longitude coordinates in a fixed orbit around the center. 
 
