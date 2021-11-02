@@ -8,9 +8,9 @@
 ![Webpack](https://img.shields.io/badge/-webpack-20232A?style=for-the-badge&logo=webpack&logoColor=blueviolet)
 ![Babel](https://img.shields.io/badge/-Babel-20232A?style=for-the-badge&logo=babel&logoColor=yellow)
 
-This project was a personal challenge to learn new technologies (`three.js` and `react-three-fiber`) and build a minimum viable product in under three days.
+This project was a personal challenge to learn new technologies (`three.js` and `react-three-fiber`) and build an application in under three days.
 
-Starlink Tracker tracks real-time data of Starlink satellites and positions them in the 3D world based on their latitude/longitude coordinates in a fixed orbit around the center. 
+Starlink Tracker tracks real-time data of Starlink satellites and positions them in the 3D world in a fixed orbit based on their current latitude/longitude coordinates. 
 
 <p
   align="center">
@@ -103,6 +103,30 @@ I wanted my camera's orbit controls to be restricted to the center geometric obj
       </>
     );
   };
+  ```
+
+</p>
+</details>
+
+### Starlink Nametags
+Selected Starlink satellites are given an HTML tag indicating the Starlink name. This was accomplished using the `<HTML>` component from the `react-three/drei` library, which renders HTML content alongside any object in the scene. The problem is that although `<HTML>` components appear as if they were part of the 3D scene, in reality they behave like regular HTML tags and belong to the normal flow of the DOM. This means that if the user scrolls, the nametags would also scroll and drift away from the satellite they were assigned to. To account for this I tracked the scroll position and utilized state to hide nametags whenever the page was scrolled.
+
+<details><summary>Show code</summary>
+<p>
+  
+  ```js
+  const [showStarlinkName, setShowStarlinkName] = useState(true);
+  
+  useEffect(() => {
+    document.body.onscroll = () => {
+      const t = document.body.getBoundingClientRect().top;
+      if (t < 0) {
+        setShowStarlinkName(false);
+      } else {
+        setShowStarlinkName(true);
+      }
+    }
+  }, []);
   ```
 
 </p>
