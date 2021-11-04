@@ -12,6 +12,8 @@ This project was a personal challenge to learn new technologies (`three.js` and 
 
 Starlink Tracker tracks real-time data of Starlink satellites and positions them in the 3D world in a fixed orbit based on their current latitude/longitude coordinates. 
 
+## [Live Demo](http://52.15.37.131:8080/)
+
 <p
   align="center">
   <img
